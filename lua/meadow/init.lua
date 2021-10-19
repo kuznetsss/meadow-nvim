@@ -8,6 +8,7 @@ meadow.DEFAULT_OPTIONS = {
     lspsaga_colors = true,
     telescope_colors = true,
     spelunker_colors = true,
+    nvim_cmp_colors = true
 }
 
 meadow.options = nil
@@ -340,6 +341,10 @@ meadow.SpelunkerColors = {
     SpelunkerComplexOrCompoundWord = { link = 'SpellBad' }
 }
 
+meadow.NvimCmpColors = {
+
+}
+
 function meadow.set_highlights(colors)
     for group, options in pairs(colors) do
         local cmd = ''
@@ -382,6 +387,9 @@ function meadow.apply_colors(options)
     end
     if meadow.options.spelunker_colors then
         meadow.set_highlights(meadow.SpelunkerColors)
+    end
+    if meadow.options.nvim_cmp_colors then
+        meadow.set_highlights(meadow.NvimCmpColors)
     end
 end
 
