@@ -60,7 +60,9 @@ require'meadow'.setup {
     signify_colors = true, -- set colors for signify
     lspsaga_colors = true, -- set colors for lspsaga
     telescope_colors = true, -- set colors for telescope
-    spelunker_colors = true, -- set colors for spelunker 
+    spelunker_colors = true, -- set colors for spelunker
+    nvim_cmp_colors = true, -- Colors for nvim-cmp (WIP)
+    fixed_line_colors = true -- set colors for fixed_line
 }
 ```
 
