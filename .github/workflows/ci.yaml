@@ -1,0 +1,34 @@
+name: CI
+
+on: [push]
+
+jobs:
+  luacheck:
+    name: luacheck
+    runs-on: ubuntu-latest
+    steps:
+      - name: luacheck
+        run: |
+          luacheck -j2 .
+      - name: stylua
+        run: |
+          luacheck -j2 .
+
+  send-telegram-message-on-failure:
+    runs-on: ubuntu-latest
+    needs: [clang-tidy_check, build_and_run_tests]
+    name: Send error message to telegram
+    if: |
+      always() && (
+        needs..result == 'failure'
+        || needs..result == 'failure'
+      )
+    steps:
+      - uses: kuznetsss/telegram_text_message_action@dev
+        with:
+          message: |
+            <b>Github workflow failed</b>
+            CI <a href=\"${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\">action</a> in <a href=\"${{ github.server_url }}/${{ github.repository }}\">${{ github.repository }}</a> failed.
+          format: html
+          chat_id: ${{ secrets.CHAT_ID }}
+          bot_token: ${{ secrets.BOT_TOKEN }}
